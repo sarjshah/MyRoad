@@ -31,9 +31,19 @@ class MyRoadRepositoryImpl(
     }
     override suspend fun getCurrentRoad(roadQuery: String): LiveData<MyRoad> {
         return withContext(Dispatchers.IO) {
-            fetchRoadData(roadQuery)
-            _roadData.postValue(MyRoadEntityMapperImpl().toDomainModel(myRoadDao.getRoadData(roadQuery.toLowerCase())))
-             return@withContext myRoadData
+            try {
+                fetchRoadData(roadQuery)
+                _roadData.postValue(
+                    MyRoadEntityMapperImpl().toDomainModel(
+                        myRoadDao.getRoadData(
+                            roadQuery.toLowerCase()
+                        )
+                    )
+                )
+                return@withContext myRoadData
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 

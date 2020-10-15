@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.practice.myroad.data.network.response.RoadResponse
 import com.practice.myroad.internal.NoConnectivityException
 import com.practice.myroad.internal.NonExistentRoadException
+import timber.log.Timber
 
-private const val TAG = "MyRoadDataSourceImpl"
 class MyRoadDataSourceImpl (
     private val myRoadApiService: MyRoadApiService
 ) : MyRoadDataSource {
@@ -21,9 +21,11 @@ class MyRoadDataSourceImpl (
                 .getRoad(roadId).await()
             _downloadedRoadData.postValue(fetchedRoadData)
         } catch (e: NoConnectivityException) {
-            Log.e(TAG, "fetchRoadData: No Internet Connection", e)
+            Timber.e("fetchRoadData: No Internet Connection")
+            throw e
         } catch (e: NonExistentRoadException) {
-            Log.e(TAG, "fetchRoadData: Invalid Road given", e)
+            Timber.e("fetchRoadData: Invalid Road given")
+            throw e
         }
     }
 }

@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.practice.myroad.R
 import com.practice.myroad.databinding.ActivityMainBinding
+import com.practice.myroad.internal.LoadingState
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,6 +37,21 @@ class MainActivity : AppCompatActivity() {
 
         myRoadViewModel.roadData.observe(this, Observer { road ->
             binding.result = road
+        })
+
+        myRoadViewModel.loadingState.observe(this, Observer { loadingState ->
+            when (loadingState.status) {
+                LoadingState.Status.FAILED -> Toast.makeText(
+                    this,
+                    loadingState.msg,
+                    Toast.LENGTH_SHORT
+                ).show()
+                LoadingState.Status.RUNNING -> Toast.makeText(
+                    this, "Loading", Toast.LENGTH_SHORT)
+                    .show()
+                LoadingState.Status.SUCCESS -> Toast.makeText(
+                    this, "Success", Toast.LENGTH_SHORT).show()
+            }
         })
 
     }

@@ -5,6 +5,7 @@ import com.practice.myroad.data.network.ConnectivityInterceptor
 import com.practice.myroad.data.network.ConnectivityInterceptorImpl
 import com.practice.myroad.data.network.MyRoadDataSource
 import com.practice.myroad.data.network.MyRoadDataSourceImpl
+import com.practice.myroad.internal.NonExistentRoadException
 import com.practice.myroad.utils.Constants
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -33,7 +34,7 @@ val networkModule = module {
 
         OkHttpClient.Builder()
             .cache(cache)
-            .addInterceptor{chain ->
+            .addInterceptor { chain ->
                 val url = chain
                     .request()
                     .url()
@@ -47,9 +48,19 @@ val networkModule = module {
                     .url(url)
                     .build()
 
-                chain.proceed(request)}
+                chain.proceed(request)
+            }
             .addInterceptor(get<ConnectivityInterceptor>())
             .addInterceptor(get<HttpLoggingInterceptor>())
+            .addInterceptor { chain ->
+                val request = chain.request()
+                val response = chain.proceed(request)
+
+                if (response.code() == 404) {
+                    throw NonExistentRoadException("Cannot Find Road")
+                }
+                chain.proceed(request)
+            }
             .build()
     }
 

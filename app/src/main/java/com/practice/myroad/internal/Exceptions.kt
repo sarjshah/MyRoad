@@ -4,4 +4,4 @@ import java.io.IOException
 
 class NoConnectivityException:IOException()
 
-class NonExistentRoadException:IOException()
+class NonExistentRoadException(message: String):IOException(message)
