@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.practice.myroad.data.network.response.RoadResponse
 import com.practice.myroad.internal.NoConnectivityException
+import com.practice.myroad.internal.NonExistentRoadException
 
 private const val TAG = "MyRoadDataSourceImpl"
 class MyRoadDataSourceImpl (
@@ -21,6 +22,8 @@ class MyRoadDataSourceImpl (
             _downloadedRoadData.postValue(fetchedRoadData)
         } catch (e: NoConnectivityException) {
             Log.e(TAG, "fetchRoadData: No Internet Connection", e)
+        } catch (e: NonExistentRoadException) {
+            Log.e(TAG, "fetchRoadData: Invalid Road given", e)
         }
     }
 }

@@ -1,16 +1,15 @@
 package com.practice.myroad.data.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface RoadDao {
+interface MyRoadDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsert(roadEntity: RoadEntity)
+    fun upsert(myRoadEntity: MyRoadEntity)
 
     @Query("select * from road_table where id = :roadName")
-    fun getRoadData(roadName: String):LiveData<RoadEntity>
+    fun getRoadData(roadName: String):MyRoadEntity
 }

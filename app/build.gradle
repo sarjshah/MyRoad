@@ -180,11 +180,12 @@ dependencies {
     def timberVersion = "4.7.1"
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
-    //Kodein
-    def kodeinVersion = "7.1.0"
-    implementation "org.kodein.di:kodein-di-generic-jvm:6.2.1"
-    implementation "org.kodein.di:kodein-di-framework-android-x:6.2.1"
 
+
+    // Koin
+    implementation "org.koin:koin-android:2.0.1"
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
+    implementation 'org.koin:koin-androidx-scope:2.0.1'
 
 
     // Better datetime support even on older Android devices
