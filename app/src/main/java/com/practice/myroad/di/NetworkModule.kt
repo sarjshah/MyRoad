@@ -57,7 +57,7 @@ val networkModule = module {
                 val response = chain.proceed(request)
 
                 if (response.code() == 404) {
-                    throw NonExistentRoadException("Cannot Find Road")
+                    throw NonExistentRoadException(Constants.CANNOT_FIND_ROAD_MESSAGE)
                 }
                 chain.proceed(request)
             }

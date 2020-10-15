@@ -3,7 +3,6 @@ package com.practice.myroad
 import android.app.Application
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.work.*
 import com.practice.myroad.di.*
 import com.practice.myroad.internal.work.RefreshDataWorker

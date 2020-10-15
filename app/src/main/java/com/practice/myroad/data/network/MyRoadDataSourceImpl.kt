@@ -1,6 +1,5 @@
 package com.practice.myroad.data.network
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.practice.myroad.data.network.response.RoadResponse

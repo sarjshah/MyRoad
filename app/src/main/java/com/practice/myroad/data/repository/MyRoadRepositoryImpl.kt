@@ -14,15 +14,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.ZonedDateTime
 
-private const val TAG = "MyRoadRepositoryImpl"
 class MyRoadRepositoryImpl(
     private val myRoadDao: MyRoadDao,
     private val roadDataSource: MyRoadDataSource
 ) : MyRoadRepository {
 
-    private var _roadData = MutableLiveData<MyRoad>()
+    private var _myRoadData = MutableLiveData<MyRoad>()
     override val myRoadData:LiveData<MyRoad>
-    get() = _roadData
+    get() = _myRoadData
 
     init {
         roadDataSource.downloadedRoadData.observeForever{newRoad ->
@@ -33,7 +32,7 @@ class MyRoadRepositoryImpl(
         return withContext(Dispatchers.IO) {
             try {
                 fetchRoadData(roadQuery)
-                _roadData.postValue(
+                _myRoadData.postValue(
                     MyRoadEntityMapperImpl().toDomainModel(
                         myRoadDao.getRoadData(
                             roadQuery.toLowerCase()

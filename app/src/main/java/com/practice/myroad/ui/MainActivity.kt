@@ -17,7 +17,6 @@ import com.practice.myroad.internal.LoadingState
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
