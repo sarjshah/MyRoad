@@ -14,4 +14,5 @@ Clean Code Architecture,
 RoomDb,
 Koin DI,
 WorkManager,
-Exception Handling
+Exception Handling,
+DataBinding
