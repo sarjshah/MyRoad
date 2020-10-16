@@ -1,4 +1,4 @@
-package com.practice.myroad.data.db
+package com.practice.myroad.utils
 
 interface EntityMapper<Entity, DomainModel> {
 

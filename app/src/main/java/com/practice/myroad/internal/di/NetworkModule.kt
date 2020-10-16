@@ -1,4 +1,4 @@
-package com.practice.myroad.di
+package com.practice.myroad.internal.di
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.practice.myroad.data.network.ConnectivityInterceptor

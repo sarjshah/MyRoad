@@ -1,6 +1,7 @@
 package com.practice.myroad.data.db
 
 import com.practice.myroad.model.MyRoad
+import com.practice.myroad.utils.EntityMapper
 
 class MyRoadEntityMapperImpl: EntityMapper<MyRoadEntity, MyRoad> {
     override fun toDomainModel(entityMy: MyRoadEntity): MyRoad {

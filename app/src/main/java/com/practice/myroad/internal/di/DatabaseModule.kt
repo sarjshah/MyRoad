@@ -1,4 +1,4 @@
-package com.practice.myroad.di
+package com.practice.myroad.internal.di
 
 import android.app.Application
 import androidx.room.Room

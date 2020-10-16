@@ -1,4 +1,4 @@
-package com.practice.myroad.di
+package com.practice.myroad.internal.di
 
 import com.practice.myroad.data.repository.MyRoadRepository
 import com.practice.myroad.data.repository.MyRoadRepositoryImpl

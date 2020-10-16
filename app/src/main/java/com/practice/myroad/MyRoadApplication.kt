@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Build
 import androidx.work.*
-import com.practice.myroad.di.*
+import com.practice.myroad.internal.di.*
 import com.practice.myroad.internal.work.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

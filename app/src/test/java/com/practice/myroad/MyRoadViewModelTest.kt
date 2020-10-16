@@ -2,7 +2,7 @@ package com.practice.myroad
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.practice.myroad.di.viewModelModule
+import com.practice.myroad.internal.di.*
 import com.practice.myroad.model.MyRoad
 import com.practice.myroad.ui.MyRoadViewModel
 import org.junit.After
@@ -33,7 +33,7 @@ class MyRoadViewModelTest : KoinTest {
     fun before() {
         MockitoAnnotations.initMocks(this)
         startKoin {
-            modules(viewModelModule)
+            modules(listOf(viewModelModule, repositoryModule, apiModule, networkModule, databaseModule))
         }
     }
 

@@ -40,16 +40,23 @@ class MainActivity : AppCompatActivity() {
 
         myRoadViewModel.loadingState.observe(this, Observer { loadingState ->
             when (loadingState.status) {
-                LoadingState.Status.FAILED -> Toast.makeText(
-                    this,
-                    loadingState.msg,
-                    Toast.LENGTH_SHORT
-                ).show()
+                LoadingState.Status.FAILED -> {
+                    Toast.makeText(
+                        this,
+                        loadingState.msg,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    tvRequestStatus.text = "FAILED"
+                }
                 LoadingState.Status.RUNNING -> Toast.makeText(
                     this, "Loading", Toast.LENGTH_SHORT)
                     .show()
-                LoadingState.Status.SUCCESS -> Toast.makeText(
-                    this, "Success", Toast.LENGTH_SHORT).show()
+                LoadingState.Status.SUCCESS -> {
+                    Toast.makeText(
+                        this, "Success", Toast.LENGTH_SHORT
+                    ).show()
+                    tvRequestStatus.text = "SUCCESS"
+                }
             }
         })
 

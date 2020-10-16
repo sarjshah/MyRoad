@@ -1,4 +1,4 @@
-package com.practice.myroad.di
+package com.practice.myroad.internal.di
 
 import com.practice.myroad.ui.MyRoadViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
