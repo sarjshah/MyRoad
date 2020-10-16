@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         myRoadViewModel.loadingState.observe(this, Observer { loadingState ->
             when (loadingState.status) {
                 LoadingState.Status.FAILED -> {
+                    clearFields()
                     Toast.makeText(
                         this,
                         loadingState.msg,
@@ -48,9 +49,13 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                     tvRequestStatus.text = "FAILED"
                 }
-                LoadingState.Status.RUNNING -> Toast.makeText(
-                    this, "Loading", Toast.LENGTH_SHORT)
-                    .show()
+                LoadingState.Status.RUNNING -> {
+                    clearFields()
+                    Toast.makeText(
+                        this, "Loading", Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
                 LoadingState.Status.SUCCESS -> {
                     Toast.makeText(
                         this, "Success", Toast.LENGTH_SHORT
@@ -60,6 +65,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun clearFields() {
+        binding.result = null
     }
 
     fun Activity.hideKeyboard() {
