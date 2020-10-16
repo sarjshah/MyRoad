@@ -1,5 +1,6 @@
 package com.practice.myroad.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.practice.myroad.data.db.MyRoadDao
@@ -7,12 +8,15 @@ import com.practice.myroad.data.db.MyRoadEntityMapperImpl
 import com.practice.myroad.data.network.MyRoadDataSource
 import com.practice.myroad.data.network.response.RoadResponse
 import com.practice.myroad.data.network.response.RoadResponseMapperImpl
+import com.practice.myroad.internal.NoConnectivityException
 import com.practice.myroad.model.MyRoad
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.ZonedDateTime
+import timber.log.Timber
+import java.nio.channels.NotYetConnectedException
 
 class MyRoadRepositoryImpl(
     private val myRoadDao: MyRoadDao,
@@ -32,18 +36,29 @@ class MyRoadRepositoryImpl(
         return withContext(Dispatchers.IO) {
             try {
                 fetchRoadData(roadQuery)
-                _myRoadData.postValue(
-                    MyRoadEntityMapperImpl().toDomainModel(
-                        myRoadDao.getRoadData(
-                            roadQuery.toLowerCase()
-                        )
-                    )
-                )
-                return@withContext myRoadData
             } catch (e: Exception) {
-                throw e
+                when(e) {
+                    is NoConnectivityException -> {
+                        fetchRoadFromDatabase(roadQuery)
+                        Timber.e("No Network")
+                        throw e
+                    }
+                    else -> throw e
+                }
             }
+            fetchRoadFromDatabase(roadQuery)
+            return@withContext myRoadData
         }
+    }
+
+    private fun fetchRoadFromDatabase(roadQuery:String) {
+        _myRoadData.postValue(
+            MyRoadEntityMapperImpl().toDomainModel(
+                myRoadDao.getRoadData(
+                    roadQuery.toLowerCase()
+                )
+            )
+        )
     }
 
     private suspend fun fetchRoadData(roadQuery: String) {

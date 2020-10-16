@@ -29,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         btnSearch.setOnClickListener {view ->
             etSearch?.let { editText ->
                 var query = editText.text.toString()
-                myRoadViewModel.getRoadData(query)
+                if (!query.isNullOrBlank()) {
+                    myRoadViewModel.getRoadData(query)
+                } else {
+                    tvRequestStatus.text = getString(R.string.error_empty_search)
+                }
             }
             view?.let { view.context?.hideKeyboard(it) }
         }

@@ -19,11 +19,18 @@ class MyRoadDataSourceImpl (
             val fetchedRoadData = myRoadApiService
                 .getRoad(roadId).await()
             _downloadedRoadData.postValue(fetchedRoadData)
-        } catch (e: NoConnectivityException) {
-            Timber.e("fetchRoadData: No Internet Connection")
-            throw e
-        } catch (e: NonExistentRoadException) {
-            Timber.e("fetchRoadData: Invalid Road given")
+        } catch (e: Exception) {
+            when (e) {
+                is NoConnectivityException -> {
+                    Timber.e("fetchRoadData: No Internet Connection")
+                }
+                is NonExistentRoadException -> {
+                    Timber.e("fetchRoadData: Invalid Road given")
+                }
+                else -> {
+                    Timber.e("fetchRoadData: Unknown Error")
+                }
+            }
             throw e
         }
     }

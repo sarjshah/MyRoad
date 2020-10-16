@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyRoad</string>
+    <string name="error_empty_search">Please enter valid road</string>
 </resources>
