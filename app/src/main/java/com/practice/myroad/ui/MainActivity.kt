@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearFields() {
         binding.result = null
+        tvRequestStatus.text = ""
     }
 
     fun Activity.hideKeyboard() {
